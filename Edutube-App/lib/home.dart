@@ -16,25 +16,58 @@ class _HomePageState extends State<HomePage> {
     final user = Provider.of<FirebaseAuthService>(context).currentUser();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: Text("EduKit"),
       ),
-      body: Column(
-        children: [
-          Container(
-            child: Text("Home page"),
-          ),
-          Text(user!.email ?? ''),
-          Text(user.displayName ?? ''),
-          ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  FirebaseAuthService().signOutUser().then((result) {
-                    Navigator.pushNamed(context, '/onboard');
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+                accountName: Text("Dark Coders"),
+                accountEmail: Text("Dark@gmail.com"),
+                currentAccountPicture: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      "https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg"
+                  ),
+                )
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text("Home"),
+            ),
+            ListTile(
+              leading: Icon(Icons.add_sharp),
+              title: Text("Add Playlist"),
+            ),
+            ListTile(
+              leading: Icon(Icons.featured_play_list_outlined),
+              title: Text("My Playlist"),
+            ),
+            ListTile(
+              leading: Icon(Icons.account_box_outlined),
+              title: Text("About Us"),
+            ),
+            ListTile(
+              leading: Icon(Icons.contact_support_outlined),
+              title: Text("Contact Us"),
+            ),
+
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text("Logout"),
+              onTap: () {
+
+                  setState(() {
+
+                    FirebaseAuthService().signOutUser().then((result){
+                      Navigator.pushNamed(context, '/Splashview');
+                    });
+
                   });
-                });
               },
-              child: Text("logout"))
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

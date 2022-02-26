@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>820037585946-e56kqjsnte1rvs67u73eku2bahvnfo4h.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.820037585946-e56kqjsnte1rvs67u73eku2bahvnfo4h</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>820037585946-dvtag2agu1ae0nkn2mo2kbo2oen1om8v.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCkK8zMbeW4nZ96a5fLAxeJVueJg2TYUz8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>820037585946</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.official.edutube</string>
+	<key>PROJECT_ID</key>
+	<string>edutube-55ae5</string>
+	<key>STORAGE_BUCKET</key>
+	<string>edutube-55ae5.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:820037585946:ios:9c0d0950aa2232cdb315a3</string>
+</dict>
+</plist>

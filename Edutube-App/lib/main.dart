@@ -15,7 +15,17 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  if (Platform.isIOS) {
+    await Firebase.initializeApp(
+        options: FirebaseOptions(
+            apiKey: "AIzaSyCkK8zMbeW4nZ96a5fLAxeJVueJg2TYUz8",
+            appId: "1:820037585946:ios:9c0d0950aa2232cdb315a3",
+            messagingSenderId: "Your Sender id found in Firebase",
+            projectId: "edutube-55ae5"
+            ));
+  } else {
+    await Firebase.initializeApp();
+  }
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
