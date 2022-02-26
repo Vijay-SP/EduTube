@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'authentication/firebase_auth_service.dart';
 import 'components/category_list_view.dart';
@@ -24,7 +25,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
-          title: Text("EduKit"),
+          title: Text("EduTube"),
           brightness: Brightness.dark,
         ),
         drawer: Drawer(
@@ -32,17 +33,43 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.zero,
             children: <Widget>[
               UserAccountsDrawerHeader(
-                  accountName: Text("Dark Coders"),
-                  accountEmail: Text("Dark@gmail.com"),
-                  currentAccountPicture: CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        "https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg"),
-                  )),
+                accountName: Text(user1!.displayName.toString()),
+                accountEmail: Text(user1!.email.toString()),
+                currentAccountPicture: user1.photoURL != null
+              ? ClipOval(
+            child: Material(
+              elevation: 2.0,
+              shadowColor: Colors.black,
+              color: Colors.grey.shade600,
+              child: Image.network(
+                user1.photoURL!,
+                width:60.0,
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+          )
+              : ClipOval(
+            child: Material(
+              // color: CustomColors.firebaseGrey.withOpacity(0.3),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Icon(
+                  Icons.person,
+                  size: 60,
+                  color: Colors.grey.shade600,
+                ),
+              ),
+            ),
+          ),
+          ),
               ListTile(
                 leading: Icon(Icons.home),
                 title: Text("Home"),
               ),
               ListTile(
+                onTap: () {
+                Navigator.pushNamed(context, '/add');
+                },
                 leading: Icon(Icons.add_sharp),
                 title: Text("Add Playlist"),
               ),
@@ -55,6 +82,10 @@ class _HomePageState extends State<HomePage> {
                 title: Text("About Us"),
               ),
               ListTile(
+                onTap: () {
+                Navigator.pushNamed(context, '/pdf_template');
+                },
+                
                 leading: Icon(Icons.contact_support_outlined),
                 title: Text("Contact Us"),
               ),

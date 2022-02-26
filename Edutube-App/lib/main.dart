@@ -1,12 +1,15 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:io';
+import 'package:edutube/components/forms/requestplaylist_data.dart';
 import 'package:edutube/home.dart';
+import 'package:edutube/pdf/pdf_template.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+// import 'package:flutter_downloader/flutter_downloader.dart';
 import 'authentication/authPage.dart';
 import 'authentication/firebase_auth_service.dart';
 import 'basicTheme.dart';
@@ -14,8 +17,9 @@ import 'onboarding_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
+  // await FlutterDownloader.initialize();
   WidgetsFlutterBinding.ensureInitialized();
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isIOS) {
     await Firebase.initializeApp(
         options: FirebaseOptions(
@@ -66,6 +70,8 @@ class MyApp extends StatelessWidget {
           "/home": (context) => HomePage(),
           "/add": (context) => Request_playlist_data(),
           "/onboard": (context) => OnboardingScreen(),
+          "/pdf_template": (context) => Pdf_Template(),
+          
         },
         debugShowCheckedModeBanner: false,
         title: 'EduTube',
