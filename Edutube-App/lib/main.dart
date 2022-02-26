@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:io';
+import 'package:edutube/components/forms/contact_us.dart';
 import 'package:edutube/components/forms/requestplaylist_data.dart';
 import 'package:edutube/home.dart';
 import 'package:edutube/user_profile.dart';
@@ -76,6 +77,7 @@ class MyApp extends StatelessWidget {
           "/add": (context) => PlaylistForm(),
           "/onboard": (context) => OnboardingScreen(),
           "/profile": (context) => User_Profile(),
+          "/contact": (context) => ContactScreen(),
           
         },
         debugShowCheckedModeBanner: false,

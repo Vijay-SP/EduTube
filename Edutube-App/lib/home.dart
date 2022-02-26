@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
               ),
               ListTile(
                 onTap: () {
-                Navigator.pushNamed(context, '/pdf_template');
+                Navigator.pushNamed(context, '/contact');
                 },
                 
                 leading: Icon(Icons.contact_support_outlined),

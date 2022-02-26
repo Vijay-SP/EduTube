@@ -23,6 +23,7 @@ dependencies:
   pdf: ^3.7.1
   flutter_downloader: any
   flutter_full_pdf_viewer:
+  font_awesome_flutter: ^9.1.0
   dio: any
   permission_handler: any
   path_provider: ^2.0.9
