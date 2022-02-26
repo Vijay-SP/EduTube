@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:edutube/home.dart';
 import '../onboarding_screen.dart';
 import 'firebase_auth_service.dart';
-import 'user.dart';
+import '../models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

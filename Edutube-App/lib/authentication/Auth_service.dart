@@ -1,5 +1,5 @@
 import 'firebase_auth_service.dart';
-import 'user.dart';
+import '../models/user.dart';
 import 'package:flutter/material.dart';
 
 abstract class AuthService {

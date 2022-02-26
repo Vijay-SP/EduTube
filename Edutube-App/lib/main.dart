@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'authentication/authPage.dart';
 import 'authentication/firebase_auth_service.dart';
+import 'basicTheme.dart';
 import 'onboarding_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -63,13 +64,12 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         routes: {
           "/home": (context) => HomePage(),
+          "/add": (context) => Request_playlist_data(),
           "/onboard": (context) => OnboardingScreen(),
         },
         debugShowCheckedModeBanner: false,
         title: 'EduTube',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: basicTheme(),
         home: AuthPage(),
       ),
     );

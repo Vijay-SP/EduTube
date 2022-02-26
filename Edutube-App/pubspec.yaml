@@ -32,6 +32,7 @@ flutter:
 
   assets:
     - assets/onboard/
+    - assets/courses/
   fonts:
     - family: WorkSans
       fonts:
