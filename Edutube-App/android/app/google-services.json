@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "820037585946",
+    "project_id": "edutube-55ae5",
+    "storage_bucket": "edutube-55ae5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:820037585946:android:e695e208f2054991b315a3",
+        "android_client_info": {
+          "package_name": "com.official.edutube"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "820037585946-nud1uglaojjsgdpms1562g641i65agg2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.official.edutube",
+            "certificate_hash": "38f808ae7b120baa73213e4cb8545e7ce9123af9"
+          }
+        },
+        {
+          "client_id": "820037585946-gt77l578gds7foj665uhuo6ao3nmp6qh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbYXbUDTXNoOcZa1tRH1rXIaMLpAbQY90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "820037585946-gt77l578gds7foj665uhuo6ao3nmp6qh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
