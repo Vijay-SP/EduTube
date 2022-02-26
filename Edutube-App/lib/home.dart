@@ -1,6 +1,11 @@
+
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace
 import 'package:firebase_auth/firebase_auth.dart';
+
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, override_on_non_overriding_member, annotate_overrides, deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'authentication/firebase_auth_service.dart';
 import 'components/category_list_view.dart';
 import 'components/course_detail_screen.dart';
@@ -16,10 +21,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   CategoryType categoryType = CategoryType.ui;
-  @override
   final FirebaseAuth _auth = FirebaseAuth.instance;
   get user1=> _auth.currentUser;
+  @override
   Widget build(BuildContext context) {
+    final user = Provider.of<FirebaseAuthService>(context).currentUser();
     return Container(
       color: CustomAppTheme.nearlyWhite,
       child: Scaffold(
@@ -63,15 +69,24 @@ class _HomePageState extends State<HomePage> {
           ),
           ),
               ListTile(
+                leading: Icon(Icons.account_circle_outlined),
+                title: Text(user1.displayName),
+                onTap: (){
+                  Navigator.pushNamed(context, '/profile');
+                },
+              ),
+              // SizedBox(height: 1.0, child: Container(color: Colors.black38,),),
+              ListTile(
                 leading: Icon(Icons.home),
                 title: Text("Home"),
               ),
               ListTile(
-                onTap: () {
-                Navigator.pushNamed(context, '/add');
-                },
+                
                 leading: Icon(Icons.add_sharp),
                 title: Text("Add Playlist"),
+                onTap:(){
+                  Navigator.pushNamed(context, '/add');
+                }
               ),
               ListTile(
                 leading: Icon(Icons.featured_play_list_outlined),

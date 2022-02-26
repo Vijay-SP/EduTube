@@ -3,21 +3,26 @@
 import 'dart:io';
 import 'package:edutube/components/forms/requestplaylist_data.dart';
 import 'package:edutube/home.dart';
-import 'package:edutube/pdf/pdf_template.dart';
+import 'package:edutube/user_profile.dart';
+
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 // import 'package:flutter_downloader/flutter_downloader.dart';
+// import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'authentication/authPage.dart';
 import 'authentication/firebase_auth_service.dart';
 import 'basicTheme.dart';
+import 'components/forms/requestplaylist_data.dart';
 import 'onboarding_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  // await FlutterDownloader.initialize();
+  await FlutterDownloader.initialize();
   WidgetsFlutterBinding.ensureInitialized();
   // WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isIOS) {
@@ -65,12 +70,12 @@ class MyApp extends StatelessWidget {
           initialData: {},
         ),
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         routes: {
           "/home": (context) => HomePage(),
-          "/add": (context) => Request_playlist_data(),
+          "/add": (context) => PlaylistForm(),
           "/onboard": (context) => OnboardingScreen(),
-          "/pdf_template": (context) => Pdf_Template(),
+          "/profile": (context) => User_Profile(),
           
         },
         debugShowCheckedModeBanner: false,

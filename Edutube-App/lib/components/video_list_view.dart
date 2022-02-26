@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
+import 'package:edutube/components/quiz_screen_view.dart';
 import 'package:edutube/components/theme.dart';
 import 'package:edutube/models/videoslist.dart';
 import 'package:flutter/material.dart';
@@ -134,6 +135,7 @@ class _VideosListViewState extends State<VideosListView>
               ),
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.only(top: 8, right: 8),
             child: Container(
@@ -158,7 +160,50 @@ class _VideosListViewState extends State<VideosListView>
               ),
             ),
           ),
+          Expanded(
+            child: Container(
+              height: 48,
+              decoration: BoxDecoration(
+                color: CustomAppTheme.nearlyYoutubeRed,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(16.0),
+                ),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: CustomAppTheme
+                          .nearlyYoutubeRed
+                          .withOpacity(0.5),
+                      offset: const Offset(1.1, 1.1),
+                      blurRadius: 10.0),
+                ],
+              ),
+              child: Center(
+                  child: TextButton(
+                    child: Text(
+                      'Quiz',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        letterSpacing: 0.0,
+                        color: CustomAppTheme.nearlyWhite,
+                      ),
+                    ),
+                    onPressed: () {
+                      moveTo();
+                    },
+                  )),
+            ),
+          ),
         ],
+      ),
+    );
+  }
+  void moveTo() {
+    Navigator.push<dynamic>(
+      context,
+      MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => QuizScreenView(),
       ),
     );
   }

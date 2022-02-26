@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:edutube/components/theme.dart';
@@ -9,14 +10,27 @@ import 'package:pdf/pdf.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-class Pdf_Template extends StatefulWidget {
+import 'package:edutube/models/quiz_controller.dart';
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'theme.dart';
+
+class QuizScoreView extends StatefulWidget {
+
+  QuizScoreView({Key? key}) : super(key: key);
+
   @override
-  State<Pdf_Template> createState() => _Pdf_TemplateState();
+  State<QuizScoreView> createState() => _QuizScoreViewState();
 }
 
-class _Pdf_TemplateState extends State<Pdf_Template> {
+class _QuizScoreViewState extends State<QuizScoreView> {
+  late int sc = Get.arguments;
+
   final pdf = pw.Document();
+
 String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
+
   Future savePdf() async {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
     String documentPath = documentDirectory.path;
@@ -155,29 +169,78 @@ String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
     ));
   }
 
+  @override
   Widget build(BuildContext context) {
+    QuestionController _control = Get.put(QuestionController());
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Certificate"),
-      ),
-      body: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              width: double.infinity,
-              child: RaisedButton(
-                color: Colors.blueGrey,
-                child: Text(
-                  'Preview PDF',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Colors.white),
-                ),
-                onPressed: () async {
-                  writeOnPdf();
+      body: SafeArea(
+          child: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child:Image.asset("assets/img/trophy.png")
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  Text(
+                    "Score",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3!
+                        .copyWith(color: kSecondaryColor),
+                  ),
+                  Spacer(),
+                  Text(
+                    "${sc * 10}/${_control.questions.length * 10}",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(color: kSecondaryColor),
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  Padding(
+                    padding:EdgeInsets.only(left:20.0,right:20.0),
+                    child: Expanded(
+                      child: Container(
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: CustomAppTheme.nearlyYoutubeRed,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(16.0),
+                          ),
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                                color: CustomAppTheme
+                                    .nearlyYoutubeRed
+                                    .withOpacity(0.5),
+                                offset: const Offset(1.1, 1.1),
+                                blurRadius: 10.0),
+                          ],
+                        ),
+                        child: Center(
+                            child: TextButton(
+                              child: Text(
+                                'Get Certificate',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18,
+                                  letterSpacing: 0.0,
+                                  color: CustomAppTheme.nearlyWhite,
+                                ),
+                              ),
+                              onPressed: () async{
+  
+writeOnPdf();
                   await savePdf();
 
                   Directory documentDirectory =
@@ -187,18 +250,27 @@ String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
                   String fullPath = "$documentPath/example.pdf";
                   print(fullPath);
-                  Navigator.push(
+                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => PdfPreviewScreen(
                                 path: fullPath,
                               )));
-                },
+                              },
+                            )),
+                      ),
+                    ),
+                  ),
+
+                  Spacer(
+                    flex:1,
+                  )
+                ],
               ),
             ),
-          ],
-        ),
-      ),
+          ),
+        ],
+      )),
     );
   }
 }

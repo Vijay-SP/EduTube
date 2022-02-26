@@ -21,18 +21,24 @@ dependencies:
   uuid: ^3.0.5
   fluttertoast: ^8.0.7
   pdf: ^3.7.1
-  # flutter_downloader: any
+  flutter_downloader: any
   flutter_full_pdf_viewer: any
   dio: any
-  # permission_handler: any
+  permission_handler: any
   path_provider: ^2.0.9
-  # share_plus: any
-  # syncfusion_flutter_pdfviewer: ^19.4.53-beta
+  share_plus: any
+  get: ^4.3.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
+  flutter_native_splash: any
+flutter_native_splash:  
+  color: "#ffffff"
+  image: assets/img/playstore.png
+  android: true
+  ios: true
 
 flutter:
 
@@ -41,6 +47,7 @@ flutter:
   assets:
     - assets/onboard/
     - assets/courses/
+    - assets/img/
   fonts:
     - family: WorkSans
       fonts:
