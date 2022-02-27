@@ -38,6 +38,19 @@ class Category {
     ),
   ];
 
+  List<Category> createCategoryList(List<Map<String, dynamic>> course) {
+    var listCategory = <Category>[];
+    for (int i = 0; i < course.length; i++) {
+      listCategory.add(Category(
+        imagePath: course[i]["videos_data"][0]["thumbnailLink"],
+        title: course[i]["courseName"],
+        lessonCount: course[i]["videos_data"].length,
+        rating: course[i]["rating"].toDouble(),
+      ));
+    }
+    return listCategory;
+  }
+
   static List<Category> popularCourseList = <Category>[
     Category(
       imagePath: 'assets/courses/course3.png',
@@ -68,12 +81,12 @@ class Category {
       title: 'Flutter Tutorial for Beginners',
       lessonCount: 28,
       rating: 4.9,
-    ),Category(
+    ),
+    Category(
       imagePath: 'assets/courses/course2.png',
       title: 'Next.js & Contentful Tutorial',
       lessonCount: 28,
       rating: 4.9,
     ),
-
   ];
 }

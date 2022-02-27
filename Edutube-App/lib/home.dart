@@ -1,8 +1,7 @@
 
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace
+import 'package:edutube/basicTheme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, override_on_non_overriding_member, annotate_overrides, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -91,6 +90,16 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                 leading: Icon(Icons.featured_play_list_outlined),
                 title: Text("My Playlist"),
+                  onTap:(){
+                    Navigator.pushNamed(context, '/myPlaylist');
+                  }
+              ),
+              ListTile(
+                  leading: Icon(Icons.featured_play_list_outlined),
+                  title: Text("All courses"),
+                  onTap:(){
+                    Navigator.pushNamed(context, '/allCourses');
+                  }
               ),
               ListTile(
                 leading: Icon(Icons.account_box_outlined),
@@ -227,12 +236,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   void moveTo() {
-    Navigator.push<dynamic>(
-      context,
-      MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => CourseDetailScreen(),
-      ),
-    );
+    // Navigator.push<dynamic>(
+    //   context,
+    //   MaterialPageRoute<dynamic>(
+    //     builder: (BuildContext context) => CourseDetailScreen(courseDetails: {},),
+    //   ),
+    // );
   }
 
   Widget getButtonUI(CategoryType categoryTypeData, bool isSelected) {

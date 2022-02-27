@@ -3,18 +3,25 @@
 import 'package:edutube/components/video_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'theme.dart';
 
-class CourseDetailScreen extends StatefulWidget {
-  final Map<String, dynamic> courseDetails;
-  const CourseDetailScreen({Key? key, required this.courseDetails});
+class ShowVideo extends StatefulWidget {
+  final Map<String, dynamic> videoDetails;
+  const ShowVideo({Key? key, required this.videoDetails});
 
   @override
-  _CourseDetailScreenState createState() => _CourseDetailScreenState();
+  _ShowVideoState createState() => _ShowVideoState();
 }
 
-class _CourseDetailScreenState extends State<CourseDetailScreen>
-    with TickerProviderStateMixin {
+class _ShowVideoState extends State<ShowVideo> with TickerProviderStateMixin {
+
+  late PlayerState _playerState;
+  late YoutubeMetaData _videoMetaData;
+  double _volume = 100;
+  bool _muted = false;
+  bool _isPlayerReady = false;
+  late YoutubePlayerController _controller;
   final double infoHeight = 364.0;
   AnimationController? animationController;
   Animation<double>? animation;
@@ -30,6 +37,23 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
         curve: Interval(0, 1.0, curve: Curves.fastOutSlowIn)));
     setData();
     super.initState();
+
+      _controller = YoutubePlayerController(
+        initialVideoId: widget.videoDetails["videoId"],
+        flags: const YoutubePlayerFlags(
+          mute: false,
+          autoPlay: true,
+          disableDragSeek: false,
+          loop: false,
+          isLive: false,
+          forceHD: false,
+          enableCaption: true,
+        ),
+      )..addListener(listener);
+      _videoMetaData = const YoutubeMetaData();
+      _playerState = PlayerState.unknown;
+
+
   }
 
   Future<void> setData() async {
@@ -48,9 +72,19 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
     });
   }
 
+  void listener() {
+    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
+      setState(() {
+        _playerState = _controller.value.playerState;
+        _videoMetaData = _controller.metadata;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    var course = widget.courseDetails;
+    var video = widget.videoDetails;
+
 
     final double tempHeight = MediaQuery.of(context).size.height -
         (MediaQuery.of(context).size.width / 1.2) +
@@ -58,22 +92,25 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
     return Container(
       color: CustomAppTheme.nearlyWhite,
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.black,
         body: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
                 AspectRatio(
                   aspectRatio: 1.2,
-                  child: Image.network(
-                    course["videos_data"][0]["thumbnailLink"],
-                    fit: BoxFit.cover,
+                  child: YoutubePlayer(
+                    controller: _controller,
+                    showVideoProgressIndicator: true,
+                    onReady: () {
+                      _controller.addListener(listener);
+                    },
                   ),
                 ),
               ],
             ),
             Positioned(
-              top: (MediaQuery.of(context).size.width / 1.2) - 24.0,
+              top: (MediaQuery.of(context).size.width / 1.2) + 10,
               bottom: 0,
               left: 0,
               right: 0,
@@ -107,7 +144,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
                             padding: const EdgeInsets.only(
                                 top: 32.0, left: 18, right: 16),
                             child: Text(
-                              course["courseName"],
+                              video["title"],
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -117,37 +154,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 16, right: 16, bottom: 8, top: 16),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Container(
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text(
-                                        course["rating"].toString(),
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w200,
-                                          fontSize: 22,
-                                          letterSpacing: 0.27,
-                                          color: CustomAppTheme.grey,
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: CustomAppTheme.nearlyYoutubeRed,
-                                        size: 24,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
                           AnimatedOpacity(
                             duration: const Duration(milliseconds: 500),
                             opacity: opacity1,
@@ -155,9 +161,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
                               padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: <Widget>[
-                                  getTimeBoxUI(
-                                      course["videos_data"].length.toString(),
-                                      'Videos'),
+                                  getTimeBoxUI(video["channelName"], 'Channel'),
                                   // getTimeBoxUI('2 hours', 'Time'),
                                 ],
                               ),
@@ -172,8 +176,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
                                   padding: const EdgeInsets.only(
                                       left: 16, right: 16, top: 8, bottom: 8),
                                   child: SelectableLinkify(
-                                    text: course["videos_data"][0]
-                                        ["description"],
+                                    text: video["description"],
                                     textAlign: TextAlign.justify,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w200,
@@ -186,98 +189,10 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
                               ),
                             ),
                           ),
-                          AnimatedOpacity(
-                            duration: const Duration(milliseconds: 500),
-                            opacity: opacity3,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 16, bottom: 16, right: 16),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Container(
-                                      height: 48,
-                                      decoration: BoxDecoration(
-                                        color: CustomAppTheme.nearlyYoutubeRed,
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(16.0),
-                                        ),
-                                        boxShadow: <BoxShadow>[
-                                          BoxShadow(
-                                              color: CustomAppTheme
-                                                  .nearlyYoutubeRed
-                                                  .withOpacity(0.5),
-                                              offset: const Offset(1.1, 1.1),
-                                              blurRadius: 10.0),
-                                        ],
-                                      ),
-                                      child: Center(
-                                          child: TextButton(
-                                        child: Text(
-                                          'View Videos',
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                            letterSpacing: 0.0,
-                                            color: CustomAppTheme.nearlyWhite,
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          Navigator.push<dynamic>(
-                                            context,
-                                            MaterialPageRoute<dynamic>(
-                                              builder: (BuildContext context) =>
-                                                  VideosListView(
-                                                videoData: List<
-                                                        Map<String,
-                                                            dynamic>>.from(
-                                                    course["videos_data"]),
-                                                playlistName:
-                                                    course["courseName"],
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      )),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
                           SizedBox(
                             height: MediaQuery.of(context).padding.bottom,
                           )
                         ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              top: (MediaQuery.of(context).size.width / 1.2) - 24.0 - 35,
-              right: 35,
-              child: ScaleTransition(
-                alignment: Alignment.center,
-                scale: CurvedAnimation(
-                    parent: animationController!, curve: Curves.fastOutSlowIn),
-                child: Card(
-                  color: CustomAppTheme.nearlyYoutubeRed,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0)),
-                  elevation: 10.0,
-                  child: Container(
-                    width: 60,
-                    height: 60,
-                    child: Center(
-                      child: Icon(
-                        Icons.favorite,
-                        color: CustomAppTheme.nearlyWhite,
-                        size: 30,
                       ),
                     ),
                   ),
@@ -296,7 +211,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
                         BorderRadius.circular(AppBar().preferredSize.height),
                     child: Icon(
                       Icons.arrow_back_ios,
-                      color: CustomAppTheme.nearlyBlack,
+                      color: CustomAppTheme.nearlyWhite,
                     ),
                     onTap: () {
                       Navigator.pop(context);

@@ -79,6 +79,9 @@ class FirebaseAuthService implements AuthService {
     return users.doc(user.email).set({
       "name": user.displayName,
       "email": user.email,
+      "photoUrl": user.photoURL,
+      "uid" : user.uid,
+      "phone" : user.phoneNumber
     }).catchError((error) => print("Failed to add user: $error"));
   }
 

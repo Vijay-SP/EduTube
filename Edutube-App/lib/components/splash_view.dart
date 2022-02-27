@@ -60,7 +60,7 @@ class _SplashViewState extends State<SplashView> {
             Padding(
               padding: EdgeInsets.only(left: 64, right: 64),
               child: Text(
-                "Get Certified to watch youtube",
+                "Get Certified to watch YouTube!",
                 textAlign: TextAlign.center,
               ),
             ),

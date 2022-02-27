@@ -1,8 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-
 import 'authentication/firebase_auth_service.dart';
 
 class User_Profile extends StatefulWidget {
@@ -16,18 +13,20 @@ class _User_ProfileState extends State<User_Profile> {
   @override
   final FirebaseAuth _auth = FirebaseAuth.instance;
   get user1 => _auth.currentUser;
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.redAccent.shade700,
-        leading: new IconButton(
-          icon: new Icon(Icons.arrow_back_ios),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Text("Profile"),
+        title: const Text("Profile"),
       ),
       body: Stack(children: <Widget>[
         ClipPath(

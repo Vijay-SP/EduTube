@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'package:edutube/components/forms/contact_us.dart';
 import 'package:edutube/components/forms/requestplaylist_data.dart';
+import 'package:edutube/components/my_playlists.dart';
 import 'package:edutube/home.dart';
 import 'package:edutube/user_profile.dart';
 
@@ -18,6 +19,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'authentication/authPage.dart';
 import 'authentication/firebase_auth_service.dart';
 import 'basicTheme.dart';
+import 'components/all_courses.dart';
 import 'components/forms/requestplaylist_data.dart';
 import 'onboarding_screen.dart';
 import 'package:provider/provider.dart';
@@ -77,6 +79,8 @@ class MyApp extends StatelessWidget {
           "/add": (context) => PlaylistForm(),
           "/onboard": (context) => OnboardingScreen(),
           "/profile": (context) => User_Profile(),
+          "/myPlaylist": (context) => MyPlaylistView(),
+          "/allCourses" : (context) => AllCourses(),
           "/contact": (context) => ContactScreen(),
           
         },

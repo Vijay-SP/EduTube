@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use, sized_box_for_whitespace
 
+import 'package:edutube/authentication/firebase_auth_service.dart';
 import 'package:edutube/components/theme.dart';
 import 'package:edutube/models/quiz_controller.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,9 @@ import 'package:get/get.dart';
 import 'answer_card_widget.dart';
 
 class QuizScreenView extends StatefulWidget {
-  const QuizScreenView({Key? key}) : super(key: key);
+  final String courseName;
+  final String channel;
+  const QuizScreenView({Key? key, required this.courseName, required this.channel}) : super(key: key);
 
   @override
   _QuizScreenViewState createState() => _QuizScreenViewState();
@@ -16,7 +19,8 @@ class QuizScreenView extends StatefulWidget {
 class _QuizScreenViewState extends State<QuizScreenView> {
   @override
   Widget build(BuildContext context) {
-    QuestionController _questionController = Get.put(QuestionController());
+    QuestionController _questionController = Get.put(QuestionController(courseName: widget.courseName, channel: widget.channel));
+
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,

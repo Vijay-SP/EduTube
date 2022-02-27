@@ -205,7 +205,7 @@ class ContactScreenState extends State<ContactScreen> {
                     ),
                     SizedBox(width: 20),
                     Text(
-                      'Rentifyplatform@gmail.com',
+                      'Edutube@gmail.com',
                       textAlign: TextAlign.justify,
                       style: TextStyle(fontSize: 16),
                     ),
@@ -215,7 +215,7 @@ class ContactScreenState extends State<ContactScreen> {
               onTap: () {
                 setState(() {
                   String mail =
-                      "mailto:Rentifyplatform@gmail.com?subject=To Rentify&body=Hi Rentify Team,";
+                      "mailto:edutube@gmail.com?subject=To Rentify&body=Hi Rentify Team,";
                   launch(mail);
                 });
               },

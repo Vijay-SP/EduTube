@@ -1,12 +1,17 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:edutube/components/quiz_screen_view.dart';
+import 'package:edutube/components/show_video.dart';
 import 'package:edutube/components/theme.dart';
 import 'package:edutube/models/videoslist.dart';
 import 'package:flutter/material.dart';
 
 class VideosListView extends StatefulWidget {
-  const VideosListView({Key? key}) : super(key: key);
+  final List<Map<String, dynamic>> videoData;
+  final String playlistName;
+  const VideosListView(
+      {Key? key, required this.videoData, required this.playlistName})
+      : super(key: key);
 
   @override
   _VideosListViewState createState() => _VideosListViewState();
@@ -67,9 +72,9 @@ class _VideosListViewState extends State<VideosListView>
                             physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.vertical,
                             children: List<Widget>.generate(
-                              videoList.length,
+                              widget.videoData.length,
                               (int index) {
-                                final int count = videoList.length;
+                                final int count = widget.videoData.length;
                                 final Animation<double> animation =
                                     Tween<double>(begin: 0.0, end: 1.0).animate(
                                   CurvedAnimation(
@@ -82,7 +87,10 @@ class _VideosListViewState extends State<VideosListView>
                                 return VideoListView(
                                   animation: animation,
                                   animationController: animationController,
-                                  listData: videoList[index],
+                                  listData: VideosList(
+                                      imagePath: widget.videoData[index]
+                                          ["thumbnailLink"]),
+                                  videoData: widget.videoData[index],
                                 );
                               },
                             ),
@@ -135,7 +143,6 @@ class _VideosListViewState extends State<VideosListView>
               ),
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.only(top: 8, right: 8),
             child: Container(
@@ -170,40 +177,39 @@ class _VideosListViewState extends State<VideosListView>
                 ),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                      color: CustomAppTheme
-                          .nearlyYoutubeRed
-                          .withOpacity(0.5),
+                      color: CustomAppTheme.nearlyYoutubeRed.withOpacity(0.5),
                       offset: const Offset(1.1, 1.1),
                       blurRadius: 10.0),
                 ],
               ),
               child: Center(
                   child: TextButton(
-                    child: Text(
-                      'Quiz',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        letterSpacing: 0.0,
-                        color: CustomAppTheme.nearlyWhite,
-                      ),
-                    ),
-                    onPressed: () {
-                      moveTo();
-                    },
-                  )),
+                child: Text(
+                  'Quiz',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                    letterSpacing: 0.0,
+                    color: CustomAppTheme.nearlyWhite,
+                  ),
+                ),
+                onPressed: () {
+                  moveTo();
+                },
+              )),
             ),
           ),
         ],
       ),
     );
   }
+
   void moveTo() {
     Navigator.push<dynamic>(
       context,
       MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => QuizScreenView(),
+        builder: (BuildContext context) => QuizScreenView(courseName: widget.playlistName,channel: widget.videoData[0]["channelName"]),
       ),
     );
   }
@@ -211,12 +217,17 @@ class _VideosListViewState extends State<VideosListView>
 
 class VideoListView extends StatelessWidget {
   const VideoListView(
-      {Key? key, this.listData, this.animationController, this.animation})
+      {Key? key,
+      this.listData,
+      this.animationController,
+      this.animation,
+      required this.videoData})
       : super(key: key);
 
   final VideosList? listData;
   final AnimationController? animationController;
   final Animation<double>? animation;
+  final Map<String, dynamic> videoData;
 
   @override
   Widget build(BuildContext context) {
@@ -236,7 +247,7 @@ class VideoListView extends StatelessWidget {
                   alignment: AlignmentDirectional.center,
                   children: <Widget>[
                     Positioned.fill(
-                      child: Image.asset(
+                      child: Image.network(
                         listData!.imagePath,
                         fit: BoxFit.cover,
                       ),
@@ -244,6 +255,17 @@ class VideoListView extends StatelessWidget {
                     Material(
                       color: Colors.transparent,
                       child: InkWell(
+                        onTap: () {
+                          Navigator.push<dynamic>(
+                            context,
+                            MaterialPageRoute<dynamic>(
+                              builder: (BuildContext context) => ShowVideo(
+                                videoDetails:
+                                    Map<String, dynamic>.from(videoData),
+                              ),
+                            ),
+                          );
+                        },
                         splashColor: Colors.grey.withOpacity(0.2),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(4.0),

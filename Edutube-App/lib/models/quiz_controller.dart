@@ -19,6 +19,10 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
     answer: question['answer_index']
   ) ).toList();
 
+  QuestionController({ String? courseName, String? channel}){
+    this._courseName = courseName;
+    this._channel = channel;
+  }
 List<Question> get questions=>this._question;
 bool _isAnswered =false;
 bool get isAnswered=>this._isAnswered;
@@ -35,7 +39,8 @@ RxInt get questionNumber=>this._questionNumber;
 int _numofCorrectAns=0;
 int get numberofCOrrectAnd=>this._numofCorrectAns;
 
-
+  late String?  _courseName;
+  late String?  _channel;
 
 
   @override
@@ -93,7 +98,7 @@ update();
     else{
     // Get.offAndToNamed(Scores());
     Get.off(
-      QuizScoreView(),arguments: numberofCOrrectAnd,
+      QuizScoreView(),arguments: [numberofCOrrectAnd, _courseName, _channel],
       transition: Transition.rightToLeft,
       duration: Duration(seconds:1)
       );

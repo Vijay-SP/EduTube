@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 import 'dart:io';
-import 'dart:typed_data';
+import 'package:edutube/authentication/firebase_auth_service.dart';
 import 'package:edutube/components/theme.dart';
+import 'package:edutube/models/user.dart';
 import 'package:edutube/pdf/pdf_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,12 +13,11 @@ import 'package:pdf/widgets.dart' as pw;
 
 import 'package:edutube/models/quiz_controller.dart';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'theme.dart';
 
 class QuizScoreView extends StatefulWidget {
-
   QuizScoreView({Key? key}) : super(key: key);
 
   @override
@@ -25,11 +25,13 @@ class QuizScoreView extends StatefulWidget {
 }
 
 class _QuizScoreViewState extends State<QuizScoreView> {
-  late int sc = Get.arguments;
+  late int sc = Get.arguments[0];
+  late String courseName = Get.arguments[1];
+  late String channel = Get.arguments[2];
 
   final pdf = pw.Document();
 
-String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
+  String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
   Future savePdf() async {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
@@ -54,7 +56,7 @@ String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
             .asUint8List());
   }
 
-  writeOnPdf() {
+  writeOnPdf(UserModel? user) {
     pdf.addPage(pw.MultiPage(
       mainAxisAlignment: pw.MainAxisAlignment.center,
       pageFormat: PdfPageFormat.a5,
@@ -63,7 +65,7 @@ String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
       build: (pw.Context context) {
         return <pw.Widget>[
           pw.Container(
-            color: PdfColors.teal200,
+            color: PdfColors.blue300,
             child: pw.Column(
                 mainAxisAlignment: pw.MainAxisAlignment.center,
                 children: [
@@ -121,7 +123,7 @@ String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
                       // mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                       children: <pw.Widget>[
                         pw.Center(
-                          child: pw.Text('NAME',
+                          child: pw.Text(user!.displayName!,
                               textScaleFactor: 2,
                               textAlign: pw.TextAlign.center,
                               style: pw.TextStyle(
@@ -138,7 +140,7 @@ String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
                           child: pw.Center(
                             child: pw.Padding(
                               padding: pw.EdgeInsets.all(10),
-                              child: pw.Text('Hello',
+                              child: pw.Text(courseName,
                                   textScaleFactor: 2,
                                   // overflow: pw.TextOverflow.clip,
                                   textAlign: pw.TextAlign.center,
@@ -154,8 +156,8 @@ String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
                   pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
                       // mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                       children: <pw.Widget>[
-                        pw.Header(level: 1, text: 'Siign'),
-                        pw.Header(level: 1, text: 'Date: ${date}'),
+                        pw.Header(level: 1, text: channel),
+                        pw.Header(level: 1, text: date),
                       ]),
                   // Write All the paragraph in one line.
                   // For clear understanding
@@ -172,6 +174,7 @@ String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
   @override
   Widget build(BuildContext context) {
     QuestionController _control = Get.put(QuestionController());
+    final user = Provider.of<FirebaseAuthService>(context).currentUser();
     return Scaffold(
       body: SafeArea(
           child: Stack(
@@ -183,9 +186,7 @@ String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    child:Image.asset("assets/img/trophy.png")
-                  ),
+                  Container(child: Image.asset("assets/img/trophy.png")),
                   Spacer(
                     flex: 1,
                   ),
@@ -208,7 +209,7 @@ String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
                     flex: 1,
                   ),
                   Padding(
-                    padding:EdgeInsets.only(left:20.0,right:20.0),
+                    padding: EdgeInsets.only(left: 20.0, right: 20.0),
                     child: Expanded(
                       child: Container(
                         height: 48,
@@ -219,8 +220,7 @@ String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
                           ),
                           boxShadow: <BoxShadow>[
                             BoxShadow(
-                                color: CustomAppTheme
-                                    .nearlyYoutubeRed
+                                color: CustomAppTheme.nearlyYoutubeRed
                                     .withOpacity(0.5),
                                 offset: const Offset(1.1, 1.1),
                                 blurRadius: 10.0),
@@ -228,42 +228,40 @@ String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
                         ),
                         child: Center(
                             child: TextButton(
-                              child: Text(
-                                'Get Certificate',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18,
-                                  letterSpacing: 0.0,
-                                  color: CustomAppTheme.nearlyWhite,
-                                ),
-                              ),
-                              onPressed: () async{
-  
-writeOnPdf();
-                  await savePdf();
+                          child: Text(
+                            'Get Certificate',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              letterSpacing: 0.0,
+                              color: CustomAppTheme.nearlyWhite,
+                            ),
+                          ),
+                          onPressed: () async {
+                            writeOnPdf(user);
+                            await savePdf();
 
-                  Directory documentDirectory =
-                      await getApplicationDocumentsDirectory();
+                            Directory documentDirectory =
+                                await getApplicationDocumentsDirectory();
 
-                  String documentPath = documentDirectory.path;
+                            String documentPath = documentDirectory.path;
 
-                  String fullPath = "$documentPath/example.pdf";
-                  print(fullPath);
-                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PdfPreviewScreen(
-                                path: fullPath,
-                              )));
-                              },
-                            )),
+                            String fullPath = "$documentPath/example.pdf";
+                            print(fullPath);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PdfPreviewScreen(
+                                          path: fullPath,
+                                        )));
+                          },
+                        )),
                       ),
                     ),
                   ),
-
                   Spacer(
-                    flex:1,
+                    flex: 1,
                   )
                 ],
               ),
