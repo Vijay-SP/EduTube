@@ -114,6 +114,14 @@ class _HomePageState extends State<HomePage> {
                 title: Text("Contact Us"),
               ),
               ListTile(
+                onTap: () {
+                Navigator.pushNamed(context, '/chat');
+                },
+                
+                leading: Icon(Icons.chat),
+                title: Text("Chat"),
+              ),
+              ListTile(
                 leading: Icon(Icons.logout),
                 title: Text("Logout"),
                 onTap: () {
