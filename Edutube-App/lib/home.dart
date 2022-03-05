@@ -1,16 +1,12 @@
-
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace
-import 'package:edutube/basicTheme.dart';
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, deprecated_member_use
+import 'package:edutube/widget/language_picker_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'authentication/firebase_auth_service.dart';
 import 'components/category_list_view.dart';
-import 'components/course_detail_screen.dart';
 import 'components/theme.dart';
 import 'components/feature_course_list_view.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -24,14 +20,16 @@ class _HomePageState extends State<HomePage> {
   get user1=> _auth.currentUser;
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<FirebaseAuthService>(context).currentUser();
     return Container(
       color: CustomAppTheme.nearlyWhite,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
-          title: Text("EduTube"),
+          title: Text(AppLocalizations.of(context)!.appName,),
           brightness: Brightness.dark,
+          actions: [
+            LanguagePickerWidget(),
+          ],
         ),
         drawer: Drawer(
           child: ListView(
@@ -171,7 +169,7 @@ class _HomePageState extends State<HomePage> {
         Padding(
           padding: const EdgeInsets.only(top: 8.0, left: 18, right: 16),
           child: Text(
-            'Category',
+            AppLocalizations.of(context)!.category,
             textAlign: TextAlign.left,
             style: TextStyle(
               fontWeight: FontWeight.w600,
@@ -222,7 +220,7 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            'Featured Courses',
+            AppLocalizations.of(context)!.featured,
             textAlign: TextAlign.left,
             style: TextStyle(
               fontWeight: FontWeight.w600,
@@ -255,11 +253,11 @@ class _HomePageState extends State<HomePage> {
   Widget getButtonUI(CategoryType categoryTypeData, bool isSelected) {
     String txt = '';
     if (CategoryType.ui == categoryTypeData) {
-      txt = 'Ui/Ux';
+      txt = AppLocalizations.of(context)!.farm;
     } else if (CategoryType.coding == categoryTypeData) {
-      txt = 'Coding';
+      txt = AppLocalizations.of(context)!.education;
     } else if (CategoryType.flutter == categoryTypeData) {
-      txt = 'Flutter';
+      txt = AppLocalizations.of(context)!.health;
     }
     return Expanded(
       child: Container(
@@ -339,7 +337,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
-                            labelText: 'Search for course',
+                            labelText: AppLocalizations.of(context)!.search,
                             border: InputBorder.none,
                             helperStyle: TextStyle(
                               fontWeight: FontWeight.bold,

@@ -8,7 +8,7 @@ get user1 => _auth.currentUser;
 // var loggedInUser;
 
 class ChatScreen extends StatefulWidget {
-  static String chatScreen = 'ChatScreenpage1';
+  // static String chatScreen = 'ChatScreenpage1';
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }

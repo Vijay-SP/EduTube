@@ -1,0 +1,30 @@
+{
+    "appName": "EduTube",
+    "@appName": {
+      "description": "An App Name"
+    },
+   "search": "Search for course",
+   "@search": {
+    "description": "Search for course"
+  },
+  "category": "Category",
+  "@category": {
+    "description": "category home"
+  },
+  "featured": "Featured Courses",
+  "@featured": {
+    "description": "featured courses home"
+  },
+  "farm": "Farm",
+  "@farm": {
+    "description": "farm name"
+  },
+  "education": "Learning",
+  "@education": {
+    "description": "education name"
+  },
+  "health": "Health",
+  "@health": {
+    "description": "health name"
+  }
+}

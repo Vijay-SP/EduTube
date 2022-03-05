@@ -6,24 +6,25 @@ import 'package:edutube/components/forms/contact_us.dart';
 import 'package:edutube/components/forms/requestplaylist_data.dart';
 import 'package:edutube/components/my_playlists.dart';
 import 'package:edutube/home.dart';
+import 'package:edutube/provider/locale_provider.dart';
 import 'package:edutube/user_profile.dart';
-
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:flutter_downloader/flutter_downloader.dart';
- import 'package:flutter_downloader/flutter_downloader.dart';
-// import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'authentication/authPage.dart';
 import 'authentication/firebase_auth_service.dart';
 import 'basicTheme.dart';
 import 'components/all_courses.dart';
 import 'components/forms/requestplaylist_data.dart';
+import 'l10n/l10n.dart';
 import 'onboarding_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
    await FlutterDownloader.initialize();
@@ -48,7 +49,10 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)=> ChangeNotifierProvider(
+  create: (context) => LocaleProvider(),
+  builder: (context, child){
+    final provider = Provider.of<LocaleProvider>(context);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
@@ -84,13 +88,21 @@ class MyApp extends StatelessWidget {
           "/chat": (context) => ChatScreen(),
           "/allCourses" : (context) => AllCourses(),
           "/contact": (context) => ContactScreen(),
-          
         },
         debugShowCheckedModeBanner: false,
         title: 'EduTube',
         theme: basicTheme(),
         home: AuthPage(),
+        locale: provider.locale,
+        supportedLocales: L10n.all,
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
       ),
     );
   }
+  );
 }
