@@ -32,6 +32,9 @@ dependencies:
   http:
   youtube_player_flutter:
   flutter_linkify: ^5.0.2
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
 
 dependency_overrides:
   firebase_messaging_platform_interface: 3.1.6
@@ -59,7 +62,7 @@ flutter_native_splash:
   ios: true
 
 flutter:
-
+  generate: true
   uses-material-design: true
 
   assets:
