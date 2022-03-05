@@ -11,11 +11,11 @@ class L10n {
   static String getFlag(String code) {
     switch (code) {
       case 'hi':
-        return 'HI';
+        return 'हिन्दी';
       case 'mr':
-        return 'MR';
+        return 'मराठी';
       case 'ta':
-        return 'TA';
+        return 'தமிழ்';
       default:
         return 'ENG';
     }

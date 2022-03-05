@@ -14,7 +14,6 @@ class Category {
   static List<Category> categoryList = <Category>[
     Category(
       imagePath: 'assets/courses/course1.png',
-      title: 'Flutter Tutorial for Beginners',
       lessonCount: 24,
       rating: 4.3,
     ),

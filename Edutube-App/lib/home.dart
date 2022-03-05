@@ -7,6 +7,7 @@ import 'components/category_list_view.dart';
 import 'components/theme.dart';
 import 'components/feature_course_list_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 

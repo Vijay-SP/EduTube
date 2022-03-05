@@ -3,6 +3,7 @@
 import 'package:edutube/models/category.dart';
 import 'theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoryListView extends StatefulWidget {
   const CategoryListView({Key? key, this.callBack}) : super(key: key);
@@ -137,7 +138,7 @@ class CategoryView extends StatelessWidget {
                                             padding:
                                                 const EdgeInsets.only(top: 16),
                                             child: Text(
-                                              category!.title,
+                                              AppLocalizations.of(context)!.course,
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w600,
@@ -162,7 +163,7 @@ class CategoryView extends StatelessWidget {
                                                   CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  '${category!.lessonCount} lesson',
+                                                  AppLocalizations.of(context)!.lessons,
                                                   textAlign: TextAlign.left,
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.w200,
@@ -175,7 +176,7 @@ class CategoryView extends StatelessWidget {
                                                   child: Row(
                                                     children: <Widget>[
                                                       Text(
-                                                        '${category!.rating}',
+                                                        AppLocalizations.of(context)!.rating,
                                                         textAlign:
                                                             TextAlign.left,
                                                         style: TextStyle(
@@ -222,7 +223,7 @@ class CategoryView extends StatelessWidget {
                                                         const EdgeInsets.all(
                                                             6.0),
                                                     child: Text(
-                                                      "view more",
+                                                      AppLocalizations.of(context)!.view_more,
                                                       style: TextStyle(
                                                         color: CustomAppTheme.nearlyWhite,
                                                       ),

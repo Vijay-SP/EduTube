@@ -41,12 +41,18 @@ class LanguagePickerWidget extends StatelessWidget {
 
             return DropdownMenuItem(
               child: Center(
-                child: Text(
-                  flag,
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: CustomAppTheme.darkText,
-                      backgroundColor: CustomAppTheme.nearlyWhite),
+                child: Container(
+                  padding:EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    color: CustomAppTheme.nearlyWhite,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    flag,
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: CustomAppTheme.darkText),
+                  ),
                 ),
               ),
               value: locale,

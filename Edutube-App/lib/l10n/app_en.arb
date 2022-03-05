@@ -26,5 +26,21 @@
   "health": "Health",
   "@health": {
     "description": "health name"
+  },
+  "rating": "4.3",
+  "@rating": {
+    "description": "rating"
+  },
+  "lessons": "22 lesson",
+  "@lessons": {
+    "description": "lessons count"
+  },
+  "course": "Learn Marathi",
+  "@course": {
+    "description": "course3 name"
+  },
+  "view_more": "view more",
+  "@view_more": {
+    "description": "view more button"
   }
 }
