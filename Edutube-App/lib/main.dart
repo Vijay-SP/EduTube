@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:io';
+import 'package:edutube/chat.dart';
 import 'package:edutube/components/forms/contact_us.dart';
 import 'package:edutube/components/forms/requestplaylist_data.dart';
 import 'package:edutube/components/my_playlists.dart';
@@ -26,7 +27,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
-  await FlutterDownloader.initialize();
+   await FlutterDownloader.initialize();
   WidgetsFlutterBinding.ensureInitialized();
   // WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isIOS) {
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
           "/onboard": (context) => OnboardingScreen(),
           "/profile": (context) => User_Profile(),
           "/myPlaylist": (context) => MyPlaylistView(),
+          "/chat": (context) => ChatScreen(),
           "/allCourses" : (context) => AllCourses(),
           "/contact": (context) => ContactScreen(),
         },
