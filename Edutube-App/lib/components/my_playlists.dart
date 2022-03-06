@@ -3,7 +3,7 @@
 import 'package:edutube/authentication/firebase_auth_service.dart';
 import 'package:edutube/models/category.dart';
 import 'package:edutube/models/user.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'course_detail_screen.dart';
 import 'theme.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +55,7 @@ class _MyPlaylistViewState extends State<MyPlaylistView>
         ),
         centerTitle: true,
         title: Text(
-          "My Courses",
+          AppLocalizations.of(context)!.my_playlist,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),

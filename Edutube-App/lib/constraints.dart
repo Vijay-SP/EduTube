@@ -1,7 +1,8 @@
+import 'package:edutube/components/theme.dart';
 import 'package:flutter/material.dart';
 
 const kSendButtonTextStyle = TextStyle(
-  color: Colors.lightBlueAccent,
+  color: CustomAppTheme.nearlyYoutubeRed,
   fontWeight: FontWeight.bold,
   fontSize: 18.0,
 );
@@ -14,6 +15,6 @@ const kMessageTextFieldDecoration = InputDecoration(
 
 const kMessageContainerDecoration = BoxDecoration(
   border: Border(
-    top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+    top: BorderSide(color: CustomAppTheme.nearlyYoutubeRed, width: 2.0),
   ),
 );

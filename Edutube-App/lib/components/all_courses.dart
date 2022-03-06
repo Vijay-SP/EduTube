@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:edutube/models/category.dart';
-
 import 'theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AllCourses extends StatefulWidget {
   const AllCourses({Key? key, this.callBack}) : super(key: key);
@@ -44,7 +44,7 @@ class _AllCoursesState extends State<AllCourses>
         ),
         centerTitle: true,
         title: Text(
-          "All Courses",
+          AppLocalizations.of(context)!.all_courses,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
@@ -150,7 +150,7 @@ class CategoryView extends StatelessWidget {
                                             padding: const EdgeInsets.only(
                                                 top: 16, left: 16, right: 16),
                                             child: Text(
-                                              category!.title,
+                                              AppLocalizations.of(context)!.course,
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w600,
@@ -175,7 +175,7 @@ class CategoryView extends StatelessWidget {
                                               CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  '${category!.lessonCount} lesson',
+                                                  AppLocalizations.of(context)!.lessons,
                                                   textAlign: TextAlign.left,
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.w200,
@@ -188,7 +188,7 @@ class CategoryView extends StatelessWidget {
                                                   child: Row(
                                                     children: <Widget>[
                                                       Text(
-                                                        '${category!.rating}',
+                                                        AppLocalizations.of(context)!.rating,
                                                         textAlign:
                                                         TextAlign.left,
                                                         style: TextStyle(

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:edutube/authentication/firebase_auth_service.dart';
 import 'package:edutube/generic_classes/customDialogs.dart';
 import 'package:edutube/generic_classes/inputWithIcon.dart';
@@ -8,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ContactScreen extends StatefulWidget {
   @override
@@ -48,7 +51,9 @@ class ContactScreenState extends State<ContactScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
-        title: Text("Contact Us"),
+        title: Text(
+          AppLocalizations.of(context)!.contact,
+        ),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
@@ -142,7 +147,7 @@ class ContactScreenState extends State<ContactScreen> {
                                 ),
                                 title: "Success",
                                 subtitle:
-                                "Your message has been recorded. \nWe will reach to you soon!  ",
+                                    "Your message has been recorded. \nWe will reach to you soon!  ",
                                 onPressed: () {
                                   Navigator.pushNamedAndRemoveUntil(
                                       context, "/home", (route) => false);
@@ -162,7 +167,6 @@ class ContactScreenState extends State<ContactScreen> {
                 ),
               ),
             ),
-
             InkWell(
               child: Container(
                 width: MediaQuery.of(context).size.width,

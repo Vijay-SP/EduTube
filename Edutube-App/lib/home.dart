@@ -76,41 +76,47 @@ class _HomePageState extends State<HomePage> {
               // SizedBox(height: 1.0, child: Container(color: Colors.black38,),),
               ListTile(
                 leading: Icon(Icons.home),
-                title: Text("Home"),
+                title: Text(AppLocalizations.of(context)!.home,),
               ),
               ListTile(
                 
                 leading: Icon(Icons.add_sharp),
-                title: Text("Add Playlist"),
+                title: Text(AppLocalizations.of(context)!.add_playlist,),
                 onTap:(){
                   Navigator.pushNamed(context, '/add');
                 }
               ),
               ListTile(
                 leading: Icon(Icons.featured_play_list_outlined),
-                title: Text("My Playlist"),
+                title: Text(AppLocalizations.of(context)!.my_playlist,),
                   onTap:(){
                     Navigator.pushNamed(context, '/myPlaylist');
                   }
               ),
               ListTile(
                   leading: Icon(Icons.featured_play_list_outlined),
-                  title: Text("All courses"),
+                  title: Text(AppLocalizations.of(context)!.all_courses,),
                   onTap:(){
                     Navigator.pushNamed(context, '/allCourses');
                   }
               ),
               ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, '/notes');
+                },
+                leading: Icon(Icons.add),
+                title: Text(AppLocalizations.of(context)!.notes,),
+              ),
+              ListTile(
                 leading: Icon(Icons.account_box_outlined),
-                title: Text("About Us"),
+                title: Text(AppLocalizations.of(context)!.about,),
               ),
               ListTile(
                 onTap: () {
                 Navigator.pushNamed(context, '/contact');
                 },
-                
                 leading: Icon(Icons.contact_support_outlined),
-                title: Text("Contact Us"),
+                title: Text(AppLocalizations.of(context)!.contact,),
               ),
               ListTile(
                 onTap: () {
@@ -118,11 +124,11 @@ class _HomePageState extends State<HomePage> {
                 },
                 
                 leading: Icon(Icons.chat),
-                title: Text("Chat"),
+                title: Text(AppLocalizations.of(context)!.diss,),
               ),
               ListTile(
                 leading: Icon(Icons.logout),
-                title: Text("Logout"),
+                title: Text(AppLocalizations.of(context)!.logout,),
                 onTap: () {
                   setState(() {
                     FirebaseAuthService().signOutUser().then((result) {

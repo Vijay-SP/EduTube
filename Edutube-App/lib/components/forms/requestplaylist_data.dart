@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PlaylistForm extends StatefulWidget {
   const PlaylistForm({Key? key}) : super(key: key);
@@ -41,7 +42,7 @@ class _PlaylistFormState extends State<PlaylistForm> {
         ),
         centerTitle: true,
         title: Text(
-          "Add PlayList",
+          AppLocalizations.of(context)!.add_playlist,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
@@ -57,7 +58,7 @@ class _PlaylistFormState extends State<PlaylistForm> {
                 padding: const EdgeInsets.only(left: 28, right: 28),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Course Name',
+                    labelText: AppLocalizations.of(context)!.course_name,
                     labelStyle:
                         TextStyle(color: Theme.of(context).primaryColor),
                     enabledBorder: OutlineInputBorder(
@@ -65,20 +66,24 @@ class _PlaylistFormState extends State<PlaylistForm> {
                       borderRadius: BorderRadius.circular(25.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color(0xFFFF0000)),
+                      borderSide: const BorderSide(
+                        color: Color(0xFFFF0000),
+                      ),
                       borderRadius: BorderRadius.circular(25.0),
                     ),
                     border: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color(0xFFFF0000)),
+                      borderSide: const BorderSide(
+                        color: Color(0xFFFF0000),
+                      ),
                       borderRadius: BorderRadius.circular(25.0),
                     ),
-                    hintText: 'Enter Course Name',
+                    hintText: AppLocalizations.of(context)!.enter_course_name,
                     hintStyle: TextStyle(color: Colors.grey),
                   ),
                   controller: Course_name,
                   validator: (String? value) {
                     if (value!.isEmpty) {
-                      return 'Course Name is Required';
+                      return AppLocalizations.of(context)!.course_name_required;
                     }
                     return null;
                   },
@@ -91,7 +96,7 @@ class _PlaylistFormState extends State<PlaylistForm> {
                 padding: const EdgeInsets.only(left: 28, right: 28),
                 child: TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Course Playlist',
+                      labelText: AppLocalizations.of(context)!.playlist_name,
                       labelStyle:
                           TextStyle(color: Theme.of(context).primaryColor),
                       enabledBorder: OutlineInputBorder(
@@ -106,7 +111,8 @@ class _PlaylistFormState extends State<PlaylistForm> {
                         borderSide: const BorderSide(color: Color(0xFFFF0000)),
                         borderRadius: BorderRadius.circular(25.0),
                       ),
-                      hintText: 'Enter Course Playlist Link',
+                      hintText:
+                          AppLocalizations.of(context)!.enter_playlist_name,
                       hintStyle: TextStyle(color: Colors.grey),
                     ),
                     controller: course_playlist,
@@ -115,47 +121,17 @@ class _PlaylistFormState extends State<PlaylistForm> {
                       // RegExp regex = value!.contains(RegExp(pattern.toString()));
 
                       if (value!.isEmpty) {
-                        return 'Youtube Link is Required';
+                        return AppLocalizations.of(context)!
+                            .required_playlist_name;
                       } else if (!value.contains(RegExp(
                           r'^https?:\/\/(www.youtube.com|youtube.com|youtu.be)(.*)$'))) {
-                        return 'Enter Valid url';
+                        return AppLocalizations.of(context)!.valid_url;
                       }
                     }),
               ),
               SizedBox(
                 height: 15,
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 28, right: 28),
-              //   child: TextFormField(
-              //     decoration: InputDecoration(
-              //       labelText: 'Course Category',
-              //       labelStyle:TextStyle(color:Theme.of(context).primaryColor),
-              //       focusColor:Theme.of(context).primaryColor,
-              //       enabledBorder: OutlineInputBorder(
-              //         borderSide: const BorderSide(color: Colors.grey),
-              //         borderRadius: BorderRadius.circular(25.0),
-              //       ),
-              //       focusedBorder:OutlineInputBorder(
-              //         borderSide: const BorderSide(color: Color(0xFFffffff)),
-              //         borderRadius: BorderRadius.circular(25.0),
-              //       ),
-              //       border: OutlineInputBorder(
-              //         borderSide: const BorderSide(color: Color(0xFFFF0000)),
-              //         borderRadius: BorderRadius.circular(25.0),
-              //       ),
-              //       hintText: 'Enter Course Category',
-              //       hintStyle: TextStyle(color: Colors.grey),
-              //     ),
-              //     controller: course_category,
-              //     validator: (String? value) {
-              //       if (value!.isEmpty) {
-              //         return 'Course Category is Required';
-              //       }
-              //       return null;
-              //     },
-              //   ),
-              // ),
               SizedBox(
                 height: 20,
               ),
@@ -172,7 +148,6 @@ class _PlaylistFormState extends State<PlaylistForm> {
                     var data = {
                       "courseName": Course_name.text,
                       "coursePlaylist": course_playlist.text,
-                      // "courseCatogery": course_category.text,
                       "user_email": user?.email,
                       "uid": user?.uid,
                       "videos_data": youtubeData,
@@ -211,7 +186,7 @@ class _PlaylistFormState extends State<PlaylistForm> {
                           color: Colors.white,
                         )
                       : Text(
-                          "Submit",
+                          AppLocalizations.of(context)!.submit,
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),

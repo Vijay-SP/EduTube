@@ -1,5 +1,6 @@
 // import 'package:share_plus/share.dart';
-import 'dart:io';
+// ignore_for_file: unnecessary_new, prefer_const_constructors, avoid_print, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, import_of_legacy_library_into_null_safe, override_on_non_overriding_member, prefer_final_fields, deprecated_member_use
+
 import 'dart:isolate';
 import 'dart:ui';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
@@ -9,9 +10,6 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-
-
-
 
 class PdfPreviewScreen extends StatefulWidget {
   final String path;
@@ -34,7 +32,7 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
   }
 
   Future sharePdf(String filePath) async {
-    Share.shareFiles(['$filePath']);
+    Share.shareFiles([filePath]);
   }
 
   @override
@@ -60,10 +58,13 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
   var dio = Dio();
   // final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
 
+  @override
   Widget build(BuildContext context) {
     return PDFViewerScaffold(
       // key: widget.key,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        brightness: Brightness.dark,
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back_ios),
           onPressed: () {

@@ -21,6 +21,7 @@ import 'authentication/firebase_auth_service.dart';
 import 'basicTheme.dart';
 import 'components/all_courses.dart';
 import 'components/forms/requestplaylist_data.dart';
+import 'components/notes_page.dart';
 import 'l10n/l10n.dart';
 import 'onboarding_screen.dart';
 import 'package:provider/provider.dart';
@@ -83,11 +84,12 @@ class MyApp extends StatelessWidget {
           "/home": (context) => HomePage(),
           "/add": (context) => PlaylistForm(),
           "/onboard": (context) => OnboardingScreen(),
-          "/profile": (context) => User_Profile(),
+          "/profile": (context) => UserProfile(),
           "/myPlaylist": (context) => MyPlaylistView(),
           "/chat": (context) => ChatScreen(),
           "/allCourses" : (context) => AllCourses(),
           "/contact": (context) => ContactScreen(),
+          "/notes":(context) => NotesPage(),
         },
         debugShowCheckedModeBanner: false,
         title: 'EduTube',
